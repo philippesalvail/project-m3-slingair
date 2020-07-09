@@ -255,23 +255,14 @@ input {
   font-size: 24px;
   width: 100%;
 }
-
 .button.confirm:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
-
 .lds-dual-ring {
   top: 8px;
   left: calc(52% - 15px);
 }
-
 .form-container {
   display: none;
-}
-.flightNA {
-  pointer-events: none;
-  opacity: 0.6;
-}
-.flightA {
 }

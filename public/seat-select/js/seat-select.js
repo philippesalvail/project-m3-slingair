@@ -1,3 +1,5 @@
+// const { url } = require("inspector");
+
 const flightInput = document.getElementById("flight");
 const seatsDiv = document.getElementById("seats-section");
 const confirmButton = document.getElementById("confirm-button");
@@ -61,25 +63,25 @@ const toggleFormContent = (event) => {
   // TODO: Pass the response data to renderSeats to create the appropriate seat-type.
 };
 
-const handleConfirmSeat = (event) => {
+const handleConfirmSeat = async (event) => {
   event.preventDefault();
   // TODO: everything in here!
-  fetch("/users", {
+  let response = await fetch("/users", {
     method: "POST",
     body: JSON.stringify({
+      flightNumber: document.getElementById("flight").value,
       givenName: document.getElementById("givenName").value,
+      surname: document.getElementById("surname").value,
+      email: document.getElementById("email").value,
+      seat: document.getElementById("seat-number").innerHTML,
     }),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-  })
-    .then((res) => res.json())
-    .then((seats) => {
-      console.log("seats: ", seats.flightsAvailable);
-      seatsRemain(seats.flightsAvailable);
-    })
-    .catch((err) => console.log(err));
+  });
+  let URL = await response.json();
+  window.location.href = `confirmed.html?id=${URL.id}`;
 };
 
 function seatsRemain(seatNumber, seats) {
