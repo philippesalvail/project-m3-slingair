@@ -88,9 +88,16 @@ input {
   padding: var(--page-padding);
   margin-bottom: var(--page-padding);
 }
-.flight-select input {
-  width: 125px;
+.flight-select div {
   margin-left: var(--page-padding);
+}
+#flight {
+  width: 150px;
+  height: -webkit-fill-available;
+}
+.custom-select {
+  position: relative;
+  font-family: Arial;
 }
 
 input {

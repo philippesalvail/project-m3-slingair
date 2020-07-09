@@ -7,6 +7,7 @@ const confirmButton = document.getElementById("confirm-button");
 let selection = "";
 
 const renderSeats = (seats) => {
+  seatsDiv.innerHTML = "";
   document.querySelector(".form-container").style.display = "block";
   const alpha = ["A", "B", "C", "D", "E", "F"];
   for (let r = 1; r < 11; r++) {
@@ -17,9 +18,8 @@ const renderSeats = (seats) => {
     for (let s = 1; s < 7; s++) {
       const seatNumber = `${r}${alpha[s - 1]}`;
       const seat = document.createElement("li");
-
       // Two types of seats to render
-      const seatOccupied = `<li><label class="seat flightNA"><span id="${seatNumber}" class="occupied">${seatNumber}</span></label></li>`;
+      const seatOccupied = `<li><label class="seat"><span id="${seatNumber}" class="occupied">${seatNumber}</span></label></li>`;
       const seatAvailable = `<li><label class="seat"><input type="radio" name="seat" value="${seatNumber}" /><span id="${seatNumber}" class="avail">${seatNumber}</span></label></li>`;
 
       seat.innerHTML = seatsRemain(seatNumber, seats)
@@ -50,7 +50,10 @@ const renderSeats = (seats) => {
 
 const toggleFormContent = (event) => {
   const flightNumber = flightInput.value;
-  console.log("toggleFormContent: ", flightNumber);
+  if (flightNumber == "Select Flight") {
+    console.log("hey: ", document.getElementById("flight").value);
+    return;
+  }
   fetch(`/flights/${flightNumber}`)
     .then((res) => res.json())
     .then((data) => {
@@ -65,6 +68,10 @@ const toggleFormContent = (event) => {
 
 const handleConfirmSeat = async (event) => {
   event.preventDefault();
+  if (document.getElementById("flight").value == "Select Flight") {
+    window.alert("Please select flight!");
+    return;
+  }
   // TODO: everything in here!
   let response = await fetch("/users", {
     method: "POST",
